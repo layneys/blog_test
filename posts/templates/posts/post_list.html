@@ -1,0 +1,42 @@
+{%extends "base.html"%}
+{%load static%}
+{%block body%}
+    <div class="container">
+        <ul>
+            {% for post in post_list %}
+                <li>
+                    {%if post.preview_pic%}
+                    <img src="{{post.preview_pic.url}}" alt = "There must image">
+                    {%endif%}
+                    <p><a href="{% url 'users:detail_profile' post.author.user.userprofile.id%}">{{post.author.user.userprofile.first_name}} {{post.author.user.userprofile.last_name}}</a></p>
+                    <p><a href="{% url 'posts:post_detail' post.id %}">{{ post.title }}</a></p>
+                    <p>{{ post.body}}</p>
+                    {%if request.user == post.author.user%}
+                    <a href="{% url 'posts:post_update' post.id %}">
+                        edit post
+                    </a>
+                    {%endif%}
+                </li>
+            {% endfor %}
+        </ul>
+        <div class="pagination">
+            <span class="step-links">
+                {% if page_obj.has_previous %}
+                    <a href="?page=1">&laquo; first</a>
+                    <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                {% endif %}
+
+                <span class="current">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </span>
+
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}">next</a>
+                    <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+    </div>
+
+{%endblock body%}
+

@@ -1,0 +1,16 @@
+{%extends "base.html"%}
+{%load static%}
+{%block body%}
+<div class="container">
+                    {%if userprofile.avatar%}
+                    <img src="{{userprofile.avatar.url}}" alt = "There must image">
+                    {%endif%}
+                    <p>{{ userprofile.first_name }} {{ userprofile.last_name}}</p>
+                    <p>{{ userprofile.bio}}</p>
+                    <p>{{ userprofile.date_birth}}</p>
+                    <p>{{ userprofile.body}}</p>
+    {%if request.user.userprofile.id == userprofile.id%}
+                     <a  href="{% url 'users:update_profile' request.user.userprofile.id%}">Edit profile</a>
+    {%endif%}
+</div>
+{%endblock body%}

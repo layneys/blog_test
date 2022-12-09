@@ -1,0 +1,10 @@
+{%extends "base.html"%}
+{%load static%}
+{%block body%}
+<div class="container">
+                    <img src="{{post.preview_pic.url}}" alt = "There must image">
+    <p>{{post.author.user.userprofile.first_name}} {{post.author.user.userprofile.last_name}}</p>
+                    <p>{{ post.title }}</p>
+                    <p>{{ post.body}}</p>
+</div>
+{%endblock body%}
